@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  div(class='pageTitle')
+    h1 Weather or not?
+  form(method="post", action="weather")
+    .form-group
+      input.form-control( name="city" type="text" placeholder="Enter city name" required='required')
+    button(type="submit") Check the weather
+
+
+  if body
+    p(class='weatherText') The weather in
+      strong  #{body.name}, #{body.sys.country}
+      |  right now.
+
+    - for(var i = 0; i < body.weather.length; i++)
+      div(class='weatherIcon')
+        img(src='http://openweathermap.org/img/w/' + body.weather[i].icon + '.png')
+        p #{body.weather[i].main}
+
+    p(class='weatherText') Temperature: #{body.main.temp} °C
+    p(class='weatherText') Humidity: #{body.main.humidity}
+  else
+    p Enter city name to see weather.
